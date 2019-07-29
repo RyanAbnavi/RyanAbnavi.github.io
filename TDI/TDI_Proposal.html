@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<!-- head -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Project Proposal By RyanAbnavi</title>
+
+  <!-- bulma 0.7.2 and font awesome v5.7.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" integrity="sha256-2pUeJf+y0ltRPSbKOeJh09ipQFYxUdct5nTY6GAXswA=" crossorigin="anonymous" />
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+ <link rel="stylesheet" href="style.css"></link>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<!-- body -->
+<body>
+
+  <!-- header -->
+  <section class="hero is-primary is-bold">
+    <!-- todo: change assignment and name -->
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+            Recommender system for CareerVillage <br>Match career advice questions with professionals in the field
+        </h1>
+        <h2 class="subtitle">
+          by: Ryan D. Abnavi
+        </h2>
+      </div>
+    </div>
+
+    <!-- todo: change navigation as needed -->
+    <div class="hero-foot">
+      <div class="container">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+
+          <div class="navbar-brand">
+            <a class="navbar-item" href="#top">
+              <span class="icon">
+                <i class="fas fa-home"></i>
+              </span>
+              <span>Home</span>
+            </a>
+          </div>
+
+
+          <div id="main-navbar" class="navbar-brand">
+            <a class="navbar-item" href="#vis1">
+              <span class="icon">
+                <i class="fas fa-chart-area"></i>
+              </span>
+              <span>Visualization 1</span>
+            </a>
+          </div>
+
+          <div id="main-navbar" class="navbar-brand">
+              <a class="navbar-item" href="#vis2">
+                <span class="icon">
+                  <i class="fas fa-chart-area"></i>
+                </span>
+                <span>Visualization 2</span>
+              </a>
+            </div>
+
+          <div class="navbar-end">
+            
+
+            <a class="navbar-item" href="#about">
+              <span class="icon">
+                <i class="fas fa-info-circle"></i>
+              </span>
+              <span>About</span>
+            </a>
+          </div>
+
+        </nav>
+      </div>
+    </div>
+  </section>
+
+    <!-- todo: add sections as necessary -->
+    <section class="section">
+        <div class="container content">
+          <!-- todo: modify as necessary (or move visualizations to separate pages) -->
+          <h2 id="top">Problem Description</h2>
+
+          <p>
+              The U.S. has almost 500 students for every guidance counselor. Underserved youth lack the network to 
+              find their career role models, making CareerVillage.org the only option for millions of young people 
+              in America and around the globe with nowhere else to turn.
+              To date, 25,000 volunteers have created profiles and opted in to receive emails when a career question 
+              is a good fit for them. This is where your skills come in. To help students get the advice they need, 
+              the team at CareerVillage.org needs to be able to send the right questions to the right volunteers. 
+              The notifications sent to volunteers seem to have the greatest impact on how many questions are answered.<br>
+               <strong>objective: develop a method to recommend relevant questions to the professionals who 
+                 are most likely to answer them.</strong>
+          </p>
+
+          <h2>
+              Data Overview
+          </h2>
+
+          <p>
+              Below you can find the diagram with data and relations.
+              Essential primary entities are "Professional", "Student", "Question" and "Answer".
+              The most useful secondary entity is "Tag."
+              
+              Primary and secondary entities are used to create so-called "content" features.
+              Other data is divided into two main parts "activity" and "time" features.
+          </p>
+          <img src="pictures/data_overview.png" alt="Data Overview" height="750" width="750">
+
+    
+          <h3>CSV Files</h3>
+    
+          <p>
+
+          For our initial model, we will keep things simple and focus on the datasets that appear to be revelant 
+          for our recommender system.
+
+          Information on the users. Users consist of professionals & students<br>
+          <strong>professionals.csv:</strong> We call our volunteers "Professionals", but we might as 
+          well call them Superheroes. They're the grown ups who volunteer their time to answer questions on the site.<br>
+          <strong>students.csv:</strong> Students are the most important people on CareerVillage.org. 
+          They tend to range in age from about 14 to 24. They're all over the world, and they're the reason we exist!<br>
+          <strong>tag_users.csv:</strong> Users of any type can follow a hashtag. This shows you which 
+          hashtags each user follows.<br>
+          
+          The Q&A information:<br>
+
+          <strong>questions.csv:</strong> Questions get posted by students. Sometimes they're very advanced. 
+          Sometimes they're just getting started. It's all fair game, as long as it's relevant to the student's 
+          future professional success.<br>
+
+        <strong>tag_questions.csv:</strong> Every question can be hashtagged. We track the hashtag-to-question 
+        pairings, and put them into this file.<br>
+
+      <strong>answers.csv:</strong> Answers are what this is all about! Answers get posted in response
+       to questions. Answers can only be posted by users who are registered as Professionals. However,
+        if someone has changed their registration type after joining, they may show up as the author of an
+         Answer even if they are no longer a Professional.<br>
+
+        Information on the platform:<br> 
+
+      <strong>emails.csv:</strong> Each email corresponds to one specific email to one specific recipient. 
+      The frequency_level refers to the type of email template which includes immediate emails sent right after a 
+      question is asked, daily digests, and weekly digests.<br>
+
+    <strong>matches.csv:</strong> Each row tells you which questions were included in emails. If an email contains 
+    only one question, that email's ID will show up here only once. If an email contains 10 questions, that email's 
+    ID would show up here 10 times.<br>
+
+  <strong>tags.csv:</strong> Each tag gets a name.<br>
+
+        Other tables:<br>
+
+      <strong>group_memberships.csv:</strong> Any type of user can join any group. There are only a handful of 
+      groups so far.<br>
+      <strong>group.csv:</strong>  Each group has a "type"<br>
+    <strong>school_memberships.csv:</strong> Just like group_memberships, but for schools instead.<br>
+  <strong>comments.csv:</strong> Comments can be made on Answers or Questions. We refer to whichever the comment
+   is posted to as the "parent" of that comment. Comments can be posted by any type of user. Our favorite comments
+    tend to have "Thank you" in them :)<br>
+<strong>question_scores.csv:</strong> "Hearts" scores for each question.<br>
+ <strong>answer_scores.csv:</strong> "Hearts" scores for each answer.<br>
+
+**
+          </p>
+    
+          <h3>Description of solution:</h3>
+    
+          <ui>
+              
+              <li>Method for taking into account all the possible content features using custom Neural Network 
+              Architecture. Allows automatically find a probability mapping between question and professional 
+              entities in all of the combinations (que-que, que-pro, pro-que, pro-pro). It is trained in a way that 
+              even without any information about professional and his activity, it still recommends questions, and
+               breaks cold start problem having its own internal scoring.</li>
+              <li> Method *activity_filter* for filtering out all the inactive professionals in order 
+                to send immediate emails to professionals who are most likely answer the question, and answer it fast</li>
+              <li> Methods *spam_filter* and *email_filter* for sending emails which allows to handle spam 
+                problem and controls frequency and amount of emails for each professional based on his personal 
+                emails reaction type and speed (here reaction==answer)</li>
+              <li> The method which tries to activate inactive and "cold" professionals by breaking *activity_filter* 
+                and *email_filter* with some probability. This is needed for making an attempt to activate the user or 
+                remind him about relevant questions which were already sent to him.</li>
+              <li> Suggestions and ideas for RL approach, environment modeling, and reward engineering to 
+                handle complex metrics</li>
+              <li> Code available for deployment</li>
+              <li> Live Demo with NN based fast similarity search</li>          
+          </ui>
+        </div>
+      </section>
+<!-- separator between sections -->
+<hr class="container">
+  <!-- todo: add sections as necessary -->
+  <section class="section">
+    <div class="container content">
+      <!-- todo: modify as necessary (or move visualizations to separate pages) -->
+      <h2 id="vis1">Professional Contribution</h2>
+
+      <img src="pictures/Professional_activity_PieChart.png" alt="Professional_activity_PieChart" height="700" width="700">
+      <h3>Interpretation</h3>
+
+      <p>
+          In this pie chart I am trying to show the activity of professionals in terms of number of posted answers.
+          As it can be seen easily in the figure above most of the professionals (63.9%) still haven't posted their 
+          first answer. Also 15.2% of professionals have answered only one question. So we need to come up with an idea
+          to increase the activity rate of professionals.
+          *           
+          A good recommendation system can surely help professionals find relevant questions to 
+          answer and increase their activity on the platform.
+      </p>
+
+      <h3>Discussion</h3>
+
+      <p>
+          This pie chart shows clearly that there is a need to increase the number of active professionals.
+      </p>
+    </div>
+  </section>
+
+  <!-- separator between sections -->
+  <hr class="container">
+  <section class="section">
+      <div class="container content">
+        <!-- todo: modify as necessary (or move visualizations to separate pages) -->
+        <h2 id="vis2">Professional Activity</h2>
+  
+        <img src="pictures/Professional_activity_Barchart.png" alt="Professional_activity_Barchart" height="700" width="700">
+        <h3>Interpretation</h3>
+  
+        <p>
+          This visualization shows the number of active (posted at least one answer) and inactive 
+          (didn't post any answer) professionals each year. comparing the number of active and incative professionals
+          shows that the ratio of active to inactive professionals have decreased over time.So again this proves that 
+          a recommender system is needed to encourage inactive professional to contribute. 
+
+        </p>
+
+      </div>
+    </section>
+
+  
+
+  <!-- about section -->
+  <!-- todo: can fill in, or link to an about page you use for all assignments -->
+  <section class="section">
+  <div class="container content">
+    <h2 id="about" style="color: green">
+      About Me
+    </h2>
+
+    <div class="media">
+      <div class="media-left">
+        <p class="image is-128x128">
+          <!-- todo: replace with your profile image -->
+          <img src="pictures\Ryan.jpg">
+        </p>
+      </div>
+
+      <div class="media-content">
+          <p>
+            <!-- todo: replace with your information -->
+            <strong style="color: green;
+  font-family: cursive;">Ryan Abnavi</strong>
+            <br/>
+            PhD student @ Cleveland State University .<br>
+            Intrests: Artificial Inteligence, Machine Learning, Recommender Systems.<br>
+            Hobbies: Video games(RPG(Fable, Skyrim, Witcher3), MMO(WOW, Dota),  turn based strategy), watching movies and tv series(sci-fi, drama), Squash!(I'll bet!).<br>
+            <!-- find brand icons at: https://fontawesome.com/icons?d=gallery&s=brands&m=free -->
+            <a href="https://github.com/RyanAbnavi">
+              <span class="fab fa-github"></span>
+              <span style="color: teal;">Github</span>
+            </a>
+            &bullet;
+            <a href="https://www.linkedin.com/in/ryan-abnavi-467668184">
+              <span class="fab fa-linkedin"></span>
+              <span style="color: darkmagenta;">LinkedIn</span>
+            </a>
+          </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- end body and html -->
+</body>
+
+</html>
